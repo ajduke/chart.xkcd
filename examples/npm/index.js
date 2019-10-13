@@ -53,6 +53,7 @@ new chartXkcd.Line(svgLine, {
   },
   options: {
     // unxkcdify: true,
+    dataColors: [],
   },
 });
 
