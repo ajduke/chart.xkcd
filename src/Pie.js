@@ -74,7 +74,6 @@ class Pie {
     const thePie = pie();
 
     const dataReady = thePie(this.data.datasets[0].data);
-
     const theArc = arc()
       .innerRadius(radius
         * (this.options.innerRadius === undefined ? 0.5 : this.options.innerRadius))

@@ -13,6 +13,9 @@ import addFont from './utils/addFont';
 import addFilter from './utils/addFilter';
 import colors from './utils/colors';
 import config from './config';
+import arrayUtils from './utils/arrayUtils';
+
+const { isEmptyArray } = arrayUtils;
 
 const margin = {
   top: 50, right: 30, bottom: 50, left: 50,
@@ -149,7 +152,7 @@ class XY {
         .attr('class', 'xkcd-chart-xyline')
         .attr('d', (d) => theLine(d.data))
         .attr('fill', 'none')
-        .attr('stroke', (d, i) => (this.options.dataColors ? this.options.dataColors[i] : colors[i]))
+        .attr('stroke', (d, i) => (!isEmptyArray(this.options.dataColors) ? this.options.dataColors[i] : colors[i]))
         .attr('filter', this.filter);
     }
 
@@ -171,13 +174,13 @@ class XY {
         // FIXME: here I want to pass xyGroupIndex down to the circles by reading parent attrs
         // It might have perfomance issue with a large dataset, not sure there are better ways
         const xyGroupIndex = Number(select(nodes[i].parentElement).attr('xy-group-index'));
-        return this.options.dataColors
+        return !isEmptyArray(this.options.dataColors)
           ? this.options.dataColors[xyGroupIndex]
           : colors[xyGroupIndex];
       })
       .style('fill', (d, i, nodes) => {
         const xyGroupIndex = Number(select(nodes[i].parentElement).attr('xy-group-index'));
-        return this.options.dataColors
+        return !isEmptyArray(this.options.dataColors)
           ? this.options.dataColors[xyGroupIndex]
           : colors[xyGroupIndex];
       })
@@ -203,7 +206,7 @@ class XY {
         tooltip.update({
           title: this.options.timeFormat ? dayjs(this.data.datasets[xyGroupIndex].data[i].x).format(this.options.timeFormat) : `${this.data.datasets[xyGroupIndex].data[i].x}`,
           items: [{
-            color: this.options.dataColors
+            color: !isEmptyArray(this.options.dataColors)
               ? this.options.dataColors[xyGroupIndex]
               : colors[xyGroupIndex],
             text: `${this.data.datasets[xyGroupIndex].label || ''}: ${d.y}`,

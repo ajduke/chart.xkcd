@@ -17,6 +17,7 @@ new chartXkcd.Bar(svg, {
   options: {
     yTickCount: 2,
     // unxkcdify: true,
+    // dataColors: []
   },
 });
 
@@ -33,6 +34,7 @@ new chartXkcd.Pie(svgPie, {
     innerRadius: 0.6,
     legendPosition: chartXkcd.config.positionType.upRight,
     // unxkcdify: true,
+    dataColors: []
   },
 });
 
@@ -75,6 +77,7 @@ new chartXkcd.XY(svgXY, {
     yTickCount: 5,
     legendPosition: chartXkcd.config.positionType.downRight,
     showLine: false,
+    dataColors: []
     // unxkcdify: true,
   },
 });
@@ -100,6 +103,7 @@ new chartXkcd.XY(svgXY2, {
     showLine: true,
     timeFormat: 'MM/DD/YYYY',
     dotSize: 0.5,
+    // dataColors: []
     // unxkcdify: true,
   },
 });

@@ -10,7 +10,9 @@ import addFont from './utils/addFont';
 import addFilter from './utils/addFilter';
 import colors from './utils/colors';
 import config from './config';
+import arrayUtils from './utils/arrayUtils';
 
+const { isEmptyArray } = arrayUtils;
 const margin = {
   top: 50, right: 30, bottom: 50, left: 50,
 };
@@ -128,7 +130,7 @@ class Bar {
       // .attr('cursor','crosshair')
       .attr('filter', this.filter)
       .on('mouseover', (d, i, nodes) => {
-        select(nodes[i]).attr('fill', this.options.dataColors ? this.options.dataColors[i] : colors[i]);
+        select(nodes[i]).attr('fill', !isEmptyArray(this.options.dataColors) ? this.options.dataColors[i] : colors[i]);
         // select(nodes[i]).attr('fill', 'url(#hatch00)');
         tooltip.show();
       })
@@ -151,7 +153,7 @@ class Bar {
         tooltip.update({
           title: this.data.labels[i],
           items: [{
-            color: this.options.dataColors ? this.options.dataColors[i] : colors[i],
+            color: !isEmptyArray(this.options.dataColors) ? this.options.dataColors[i] : colors[i],
             text: `${this.data.datasets[0].label || ''}: ${d}`,
           }],
           position: {
